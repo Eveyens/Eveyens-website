@@ -40,8 +40,8 @@ export default function Hero() {
       </div>
       <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
         <img
-          className="h-56 w-full object-cover sm:h-72 md:h-96 lg:h-full"
-          src="/group-session.jpg"
+          className="h-56 w-full object-contain sm:h-72 md:h-96 lg:h-full"
+          src="/group-session.jpeg"
           alt="Séance de travail collaboratif"
         />
       </div>

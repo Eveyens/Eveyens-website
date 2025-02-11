@@ -58,7 +58,7 @@ export default function Profile() {
           <div className="mt-8 lg:mt-0">
             <img
               className="rounded-lg shadow-lg object-cover w-full max-w-md mx-auto"
-              src="/profile.jpg"
+              src="/micro_profil.jpg"
               alt="Elena CHILOVA PIRON - Coach Professionnel"
             />
           </div>
