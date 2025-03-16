@@ -1,1 +1,41 @@
-{"new_mission":{"Year":2025,"link":"https://www.linkedin.com/posts/elena-chilova-piron-pcc_engagement-collaboration-leadership-activity-7304876779402354691-i8-L?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFKCPEABbi4cViMyEgIxB0sl8YLissAc1KY","Client":"EDF GEH SMB","description":"Développer l’engagement – soutenir la prise d’initiatives – accroître les marges de manœuvre"},"existing content":"[\n  {\n    client: \"EDF Hydro CODIR GEH\",\n    year: \"2024\",\n    description: \"Accompagnement du CODIR sur ses modes de fonctionnement\",\n    link: \"https://bit.ly/3vlR4hc\"\n  },\n  {\n    client: \"Ville de Bezons\",\n    year: \"2024\",\n    description: \"Accompagnement pour le développement des compétences managériales des cadres de la ville\",\n    link: \"https://bit.ly/3K79wxS\"\n  },\n  {\n    client: \"MIEPEEC Maroc\",\n    year: \"2023\",\n    description: \"Programme « Direction Femmes » pour le développement du leadership de 100 femmes cadres\",\n    link: \"https://bit.ly/3HeSXj0\"\n  },\n  {\n    client: \"EDF Hydro Business Unite\",\n    year: \"2023\",\n    description: \"Conception et animation de séminaires pour ED, CODIR et CODIR Élargi sur la vision 2030\",\n    link: \"https://bit.ly/46UIgfo\"\n  },\n  {\n    client: \"Chicanrie\",\n    year: \"2023\",\n    description: \"Ateliers découvertes pour appréhender les conflits\",\n    link: \"https://bit.ly/49cRncy\"\n  },\n  {\n    client: \"EDF Hydro\",\n    year: \"2022\",\n    description: \"Cursus de professionnalisation des Encadrants\",\n    link: \"http://bit.ly/40mbgKm\"\n  }\n]"}
+
+const missions = [
+  {
+    client: "EDF Hydro CODIR GEH",
+    year: "2024",
+    description: "Accompagnement du CODIR sur ses modes de fonctionnement",
+    link: "https://bit.ly/3vlR4hc"
+  },
+  {
+    client: "Ville de Bezons",
+    year: "2024",
+    description: "Accompagnement pour le développement des compétences managériales des cadres de la ville",
+    link: "https://bit.ly/3K79wxS"
+  },
+  {
+    client: "MIEPEEC Maroc",
+    year: "2023",
+    description: "Programme « Direction Femmes » pour le développement du leadership de 100 femmes cadres",
+    link: "https://bit.ly/3HeSXj0"
+  },
+  {
+    client: "EDF Hydro Business Unite",
+    year: "2023",
+    description: "Conception et animation de séminaires pour ED, CODIR et CODIR Élargi sur la vision 2030",
+    link: "https://bit.ly/46UIgfo"
+  },
+  {
+    client: "Chicanrie",
+    year: "2023",
+    description: "Ateliers découvertes pour appréhender les conflits",
+    link: "https://bit.ly/49cRncy"
+  },
+  {
+    client: "EDF Hydro",
+    year: "2022",
+    description: "Cursus de professionnalisation des Encadrants",
+    link: "http://bit.ly/40mbgKm"
+  }
+];
+
+export default missions;
