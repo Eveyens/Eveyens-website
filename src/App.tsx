@@ -37,7 +37,7 @@ function App() {
   const showContactButton = !['/contact', '/'].includes(currentPath);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="bg-gradient-to-br from-yellow-400 via-yellow-500 to-orange-500 min-h-screen text-white">
       <Navbar />
       {showContactButton && <ContactButton />}
       {renderPage()}
