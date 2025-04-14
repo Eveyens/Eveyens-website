@@ -62,11 +62,11 @@ export default function Services() {
     <div className="min-h-screen bg-white pt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="lg:text-center">
-          <h2 className="text-3xl font-extrabold text-secondary-900 sm:text-4xl">
+          <h1 className="text-3xl font-extrabold text-secondary-900 sm:text-4xl">
             Nos Services
-          </h2>
+          </h1>
           <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-            Nous créons des dispositifs qui mobilisent l'Intelligence Collective, alignent les équipes sur des enjeux clés et engagent chacun dans des actions concrètes.
+            Nous créons des dispositifs qui mobilisent l'Intelligence Collective, alignent les équipes sur des enjeux clés et engagent chacun dans des actions concrètes de coaching professionnel et de facilitation.
           </p>
         </div>
 
@@ -128,6 +128,10 @@ export default function Services() {
             ))}
           </div>
         </div>
+
+        <p className="mt-4 text-base text-gray-500">
+          Pour en savoir plus sur notre approche, visitez notre page <a href="/about">À propos</a> ou <a href="/contact">Contactez-nous</a>.
+        </p>
       </div>
     </div>
   );
