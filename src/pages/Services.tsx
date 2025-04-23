@@ -66,7 +66,7 @@ export default function Services() {
             Nos Services
           </h1>
           <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-            Nous créons des dispositifs qui mobilisent l'Intelligence Collective, alignent les équipes sur des enjeux clés et engagent chacun dans des actions concrètes de coaching professionnel et de facilitation.
+          Nous créons des dispositifs de coaching professionnel et de facilitation qui mobilisent l'Intelligence Collective, alignent les équipes sur des enjeux clés et engagent chacun dans des actions concrètes.
           </p>
         </div>
 
