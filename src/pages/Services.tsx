@@ -73,7 +73,7 @@ export default function Services() {
         <div className="mt-20">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
             {mainServices.map((service, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden">
+              <div key={index} className="rounded-lg shadow-lg overflow-hidden" style={{ background: 'linear-gradient(135deg, #ffae3a1a, #fffe9f1a, #ffae3a1a)' }}>
                 <div className="p-6">
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
@@ -108,14 +108,14 @@ export default function Services() {
           </div>
         </div>
 
-        <div className="mt-32">
+        <div className="mt-24">
           <h3 className="text-2xl font-bold text-secondary-900 sm:text-3xl text-center mb-12">
             Domaines d'expertise
           </h3>
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {expertises.map((item, index) => (
-              <div key={index} className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
-                <div className="flex items-center justify-center h-12 w-12 rounded-md bg-primary-100 text-primary-500 mx-auto">
+              <div key={index} className="rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow" style={{ background: 'linear-gradient(135deg, #ffae3a1a, #fffe9f1a, #ffae3a1a)' }}>
+                <div className="flex items-center justify-center h-12 w-12 rounded-md bg-primary-100 text-primary-500 mx-auto" style={{ background: '#fff' }}>
                   <item.icon className="h-6 w-6" />
                 </div>
                 <h4 className="mt-4 text-lg font-medium text-secondary-900 text-center">

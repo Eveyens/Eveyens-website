@@ -10,7 +10,7 @@ export default function RecentMissions() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-3">
           {missions.map((mission, index) => (
-            <div key={index} className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+            <div key={index} className="rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow" style={{ background: 'linear-gradient(135deg, #ffae3a1a, #fffe9f1a, #ffae3a1a)' }}>
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center">
                   <Building2 className="h-5 w-5 text-primary-500" />

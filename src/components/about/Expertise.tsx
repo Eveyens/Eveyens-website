@@ -35,7 +35,7 @@ export default function Expertise() {
         </div>
         <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {expertises.map((item, index) => (
-            <div key={index} className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
+            <div key={index} className="rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow" style={{ background: 'linear-gradient(135deg, #ffae3a1a, #fffe9f1a, #ffae3a1a)' }}>
               <div className="flex items-center justify-center h-12 w-12 rounded-md bg-primary-100 text-primary-500 mx-auto">
                 <item.icon className="h-6 w-6" />
               </div>
