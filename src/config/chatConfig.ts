@@ -9,8 +9,8 @@ export const chatConfig = {
   widget: {
     showWelcomeScreen: false,
     initialMessages: [
-      'Bonjour ! 👋',
-      'Comment puis-je vous aider aujourd\'hui ?'
+      "Bonjour j'espère que vous allez bien! 👋",
+      'Prêt à découvrir comment Eveyens peut vous être utile ? Que souhaitez-vous savoir ?'
     ],
     i18n: {
       en: {

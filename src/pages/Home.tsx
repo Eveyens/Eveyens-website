@@ -39,6 +39,14 @@ export default function Home() {
                 Nous contacter
               </a>
             </div>
+            <div className="space-x-4 mt-4">
+              <a
+                href="/chat"
+                className="inline-block bg-orange-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-600 transition-colors"
+              >
+                Posez vos questions à Eve (IA)
+              </a>
+            </div>
           </div>
         </div>
       </section>
