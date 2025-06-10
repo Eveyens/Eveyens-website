@@ -69,7 +69,7 @@ export default function Contact() {
               30 minutes pour faire connaissance et comprendre vos enjeux. Un moment privilégié pour explorer ensemble comment nous pouvons vous accompagner.
             </p>
             <a
-              href="https://calendly.com/elena-chilova" 
+              href="https://calendly.com/eveyens/rv_avec_elena" 
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center px-6 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors font-semibold"
