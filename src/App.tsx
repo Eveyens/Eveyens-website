@@ -7,6 +7,7 @@ import Services from './pages/Services';
 import References from './pages/References';
 import Contact from './pages/Contact';
 import Chat from './pages/Chat';
+import Privacy from './pages/Privacy';
 
 function App() {
   const [currentPath, setCurrentPath] = React.useState(window.location.pathname);
@@ -32,6 +33,8 @@ function App() {
         return <Contact />;
       case '/chat':
         return <Chat />;
+      case '/privacy':
+        return <Privacy />;
       default:
         return <Home />;
     }
