@@ -126,6 +126,7 @@ export default function References() {
                       <div className="w-full h-full rounded-xl shadow-lg relative overflow-hidden">
                         <img 
                           src={mission.imageUrl} 
+                          loading="lazy"
                           alt={mission.title}
                           className="w-full h-full object-cover"
                         />

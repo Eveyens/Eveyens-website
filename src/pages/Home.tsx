@@ -10,6 +10,7 @@ export default function Home() {
           <img
             className="h-full w-full object-cover"
             src="/image/group-session.webp"
+            loading="lazy"
             alt="Session de coaching collectif"
             style={{ objectPosition: 'center 37%' }}
           />
@@ -94,6 +95,7 @@ export default function Home() {
               <div className="absolute right-6 top-1/2 -translate-y-1/2 w-40 h-40 md:w-56 md:h-56 rounded-full bg-[#ff6a33] opacity-20 blur-3xl" />
               <img
                 src="/image/logo-eveyens.webp"
+                loading="lazy"
                 alt="Eveyens"
                 className="relative w-56 md:w-72 lg:w-80 h-auto opacity-95"
               />
@@ -129,6 +131,7 @@ export default function Home() {
             <div className="flex md:justify-end">
               <img
                 src="/image/evyia-conv.webp"
+                loading="lazy"
                 alt="Conversation EVYIA"
                 className="w-full max-w-md md:max-w-lg lg:max-w-xl h-auto drop-shadow-xl rounded-lg"
               />
@@ -138,6 +141,7 @@ export default function Home() {
           <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6">
             <img
               src="/image/logo-evyia.webp"
+              loading="lazy"
               alt="EVYIA"
               className="h-14 w-auto md:h-16"
             />

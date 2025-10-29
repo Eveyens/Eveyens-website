@@ -32,6 +32,7 @@ export default function Navbar() {
               <img
                 className="h-24 w-auto"
                 src="/image/logo-eveyens.webp"
+                loading="lazy"
                 alt="Eveyens"
               />
             </button>

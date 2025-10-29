@@ -74,6 +74,7 @@ export default function About() {
             <img
               className="rounded-lg shadow-lg object-cover w-full max-w-md mx-auto"
               src="/image/micro_profil.webp"
+              loading="lazy"
               alt="Elena CHILOVA PIRON - Coach Professionnel"
             />
           </div>

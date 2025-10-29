@@ -129,6 +129,7 @@ export default function Services() {
                     <div className="w-full h-full rounded-xl shadow-lg relative overflow-hidden">
                       <img 
                         src={service.imageUrl} 
+                        loading="lazy"
                         alt={service.title}
                         className="w-full h-full object-cover"
                       />
@@ -215,6 +216,7 @@ export default function Services() {
               <div className="flex md:justify-end">
                 <img
                   src="/image/evyia-conv.webp"
+                  loading="lazy"
                   alt="Conversation EVYIA"
                   className="w-full max-w-md md:max-w-lg lg:max-w-xl h-auto drop-shadow-xl rounded-lg"
                 />
@@ -224,6 +226,7 @@ export default function Services() {
             <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6">
               <img
                 src="/image/logo-evyia.webp"
+                loading="lazy"
                 alt="EVYIA"
                 className="h-14 w-auto md:h-16"
               />
@@ -252,6 +255,7 @@ export default function Services() {
                     <div className="w-full h-full rounded-xl shadow-lg relative overflow-hidden">
                       <img 
                         src={item.imageUrl} 
+                        loading="lazy"
                         alt={item.title}
                         className="w-full h-full object-cover"
                       />
@@ -301,6 +305,7 @@ export default function Services() {
                     <div className="w-full h-full rounded-xl shadow-lg relative overflow-hidden">
                       <img 
                         src={outil.imageUrl} 
+                        loading="lazy"
                         alt={outil.title}
                         className="w-full h-full object-cover"
                       />
