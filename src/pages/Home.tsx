@@ -26,16 +26,16 @@ export default function Home() {
             <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
               Créer les conditions du dialogue profond et de la performance collective.
             </p>
-            <div className="space-x-4">
+            <div className="flex flex-col items-center gap-3 md:flex-row md:space-x-4 md:gap-0">
               <a
                 href="/services"
-                className="inline-block bg-white text-orange-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+                className="inline-block bg-white text-orange-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors w-full md:w-auto text-center"
               >
                 Découvrir nos services
               </a>
               <a
                 href="/contact"
-                className="inline-block border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-orange-600 transition-colors"
+                className="inline-block border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-orange-600 transition-colors w-full md:w-auto text-center"
               >
                 Nous contacter
               </a>
@@ -43,7 +43,7 @@ export default function Home() {
                 href="https://evyia.fr"
                 target="_blank"
                 rel="noreferrer noopener"
-                className="inline-block bg-[#FF6F61] text-white px-8 py-3 rounded-lg font-semibold "
+                className="inline-block bg-[#FF6F61] text-white px-8 py-3 rounded-lg font-semibold w-full md:w-auto text-center"
               >
                 Découvrir EVYIA
               </a>
@@ -51,6 +51,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      
 
       {/* Pitch Section */}
       <section className="relative py-16 bg-gradient-to-b from-[#fff5ef] to-white overflow-hidden">
@@ -90,7 +92,7 @@ export default function Home() {
               </div>
             </div>
             {/* Image/Logo à droite */}
-            <div className="relative flex md:justify-end">
+            <div className="relative flex justify-center md:justify-end mt-8 md:mt-0">
               {/* Halo doux */}
               <div className="absolute right-6 top-1/2 -translate-y-1/2 w-40 h-40 md:w-56 md:h-56 rounded-full bg-[#ff6a33] opacity-20 blur-3xl" />
               <img
@@ -237,6 +239,18 @@ export default function Home() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Liens vers les autres pages - Bottom */}
+      <section className="py-12 border-t">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 text-center">
+            <a href="/about" className="block w-full rounded-lg border hover:border-orange-300 hover:bg-orange-50 text-gray-700 font-medium py-3 transition-colors">À propos</a>
+            <a href="/services" className="block w-full rounded-lg border hover:border-orange-300 hover:bg-orange-50 text-gray-700 font-medium py-3 transition-colors">Services</a>
+            <a href="/references" className="block w-full rounded-lg border hover:border-orange-300 hover:bg-orange-50 text-gray-700 font-medium py-3 transition-colors">Références</a>
+            <a href="/contact" className="block w-full rounded-lg border hover:border-orange-300 hover:bg-orange-50 text-gray-700 font-medium py-3 transition-colors">Contact</a>
           </div>
         </div>
       </section>
