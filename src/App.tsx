@@ -1,12 +1,10 @@
 import React from 'react';
 import Navbar from './components/Navbar';
-import ChatBot from './components/ChatBot';
 import Home from './pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';
 import References from './pages/References';
 import Contact from './pages/Contact';
-import Chat from './pages/Chat';
 import Privacy from './pages/Privacy';
 
 function App() {
@@ -31,8 +29,6 @@ function App() {
         return <References />;
       case '/contact':
         return <Contact />;
-      case '/chat':
-        return <Chat />;
       case '/privacy':
         return <Privacy />;
       default:
@@ -40,15 +36,9 @@ function App() {
     }
   };
 
-  // Afficher le chatbot sur toutes les pages sauf la page chat (pour éviter les doublons)
-  const showChatBot = currentPath !== '/chat';
-  // Afficher la navbar sauf sur la page chat en plein écran
-  const showNavbar = currentPath !== '/chat';
-
   return (
     <div className="bg-white min-h-screen">
-      {showNavbar && <Navbar />}
-      {showChatBot && <ChatBot mode="widget" />}
+      <Navbar />
       <main>
         {renderPage()}
       </main>

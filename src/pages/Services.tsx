@@ -7,7 +7,7 @@ const mainServices = [
     description: 'Accompagnement des Organisations, des Business Units dans leurs transformations.',
     icon: Target,
     bgGradient: "from-blue-500 to-blue-700",
-    imageUrl: "/images/accompagnement-strategique.png",
+    imageUrl: "/image/accompagnement-strategique.webp",
     details: [
       'Bâtir la vision',
       'Développer la confiance',
@@ -19,7 +19,7 @@ const mainServices = [
     description: 'Accompagnement des dirigeants, des managers et des équipes pour gagner en performance.',
     icon: Lightbulb,
     bgGradient: "from-amber-500 to-amber-700",
-    imageUrl: "/images/accompagnement-operationnel.png",
+    imageUrl: "/image/accompagnement-operationnel.webp",
     details: [
       'Coaching individuel',
       'Coaching d\'équipe',
@@ -31,7 +31,7 @@ const mainServices = [
     description: 'Développement dans des collectifs et des groupes de pairs.',
     icon: Brain,
     bgGradient: "from-purple-500 to-purple-700",
-    imageUrl: "/images/leadership-participatif.png",
+    imageUrl: "/image/leadership-participatif.webp",
     details: [
       'Co-Développement',
       'Professionnalisation des leaders, des managers et des encadrants',
@@ -46,28 +46,28 @@ const expertises = [
     title: "Conception et animation de dispositifs",
     description: "Conception et animation de temps collectifs de 3 à 500+ personnes en présentiel, distanciel ou hybride : grands groupes industriels, PME, secteur public.",
     bgGradient: "from-green-500 to-green-700",
-    imageUrl: "/images/conception-animation.png"
+    imageUrl: "/image/conception-animation.webp"
   },
   {
     icon: Brain,
     title: "Facilitation en Intelligence Collective",
     description: "Mobiliser l'Intelligence Collective et faire émerger des solutions innovantes et engageantes.",
     bgGradient: "from-indigo-500 to-indigo-700",
-    imageUrl: "/images/facilitation-intelligence.png"
+    imageUrl: "/image/facilitation-intelligence.webp"
   },
   {
     icon: Target,
     title: "Coaching Professionnel",
     description: "Accompagnement personnalisé des dirigeants, des managers et des équipes pour développer leur potentiel et atteindre leurs objectifs.",
     bgGradient: "from-red-500 to-red-700",
-    imageUrl: "/images/coaching-professionnel.png"
+    imageUrl: "/image/coaching-professionnel.webp"
   },
   {
     icon: MessageCircle,
     title: "Régulation / Médiation",
     description: "Régulation interpersonnelle et collective pour résoudre les tensions et crises.",
     bgGradient: "from-teal-500 to-teal-700",
-    imageUrl: "/images/regulation-mediation.png"
+    imageUrl: "/image/regulation-mediation.webp"
   }
 ];
 
@@ -77,28 +77,28 @@ const outils = [
     title: "Fresque de Management by Samé",
     description: "Atelier collaboratif pour repenser les pratiques managériales et aligner les comportements des managers sur les défis actuels et futurs grâce à une méthodologie ludique et immersive.",
     bgGradient: "from-pink-500 to-pink-700",
-    imageUrl: "/images/fresque-management.png"
+    imageUrl: "/image/fresque-management.webp"
   },
   {
     icon: BarChart,
     title: "DISC Force Motrice",
     description: "Modèle d’analyse comportementale et motivationnelle  pour mieux se connaitre et mieux travailler ensemble, renforcer la coopération, améliorer la communication, éviter des situations conflictuelles.",
     bgGradient: "from-cyan-500 to-cyan-700",
-    imageUrl: "/images/disc-force-motrice.jpeg"
+    imageUrl: "/image/disc-force-motrice.webp"
   },
   {
     icon: Eye,
     title: "Vision Visioning Visionnaire",
     description: "Processus immersif qui permet d’explorer et de formuler les trois éléments de la vision : la Raison d’Etre, les Valeurs et l’Ambition et projette l’organisation dans son futur désirable.",
     bgGradient: "from-violet-500 to-violet-700",
-    imageUrl: "/images/vision-visioning.png"
+    imageUrl: "/image/vision-visioning.webp"
   },
   {
     icon: FileSearch,
     title: "Diagnostic Partagé",
     description: "Analyse flash conduite avec l'ensemble des parties prenantes pour un état des lieux objectif. Fait ressortir priorités et actions rapides à fort impact collectif.",
     bgGradient: "from-emerald-500 to-emerald-700",
-    imageUrl: "/images/diagnostic-partage.png"
+    imageUrl: "/image/diagnostic-partage.webp"
   }
 ];
 
@@ -182,6 +182,62 @@ export default function Services() {
             ))}
           </div>
         </div>
+
+        {/* Section EVYIA - coach digital */}
+        <section className="mt-20 py-16 bg-gradient-to-b from-[#fff5ef] to-white rounded-2xl">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+              <h1 className="text-3xl md:text-4xl font-bold text-red-500">
+                Nouveau : EVYIA notre coach digital.
+              </h1>
+            </div>
+            <div className="text-center mb-10">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+                Une solution IA pour un coaching personnalisé à tout instant.
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+              {/* Texte à gauche */}
+              <div>
+                <div className="space-y-6 text-lg leading-relaxed text-gray-700">
+                  <p>
+                    Développé par Eveyens, EVYIA est un coach digital conçu pour accompagner les leaders et les managers dans leurs réflexions du quotidien.
+                  </p>
+                  <p>
+                    Il prolonge les accompagnements humains en offrant un espace de dialogue disponible à tout moment pour clarifier, se recentrer et avancer avec lucidité.
+                  </p>
+                  <p>
+                    À travers ses échanges, EVYIA invite à prendre du recul, à reformuler l’essentiel et à transformer la réflexion en action alignée.
+                  </p>
+                </div>
+              </div>
+              {/* Image à droite */}
+              <div className="flex md:justify-end">
+                <img
+                  src="/image/evyia-conv.webp"
+                  alt="Conversation EVYIA"
+                  className="w-full max-w-md md:max-w-lg lg:max-w-xl h-auto drop-shadow-xl rounded-lg"
+                />
+              </div>
+            </div>
+            {/* Footer du bloc: logo + CTA */}
+            <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6">
+              <img
+                src="/image/logo-evyia.webp"
+                alt="EVYIA"
+                className="h-14 w-auto md:h-16"
+              />
+              <a
+                href="https://evyia.fr"
+                target="_blank"
+                rel="noreferrer noopener"
+                className="inline-block bg-[#FF6F61] text-white font-semibold px-6 py-3 rounded-lg shadow-sm hover:opacity-95 transition-opacity"
+              >
+                Découvrir EVYIA
+              </a>
+            </div>
+          </div>
+        </section>
 
         <div className="mt-24">
           <h3 className="text-2xl font-bold text-secondary-900 sm:text-3xl text-center mb-12">

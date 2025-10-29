@@ -61,3 +61,44 @@ input, textarea {
     transform: rotateY(180deg);
   }
 }
+
+/* Animation titre orange (sobre et professionnel) */
+@keyframes eveyens-orange-sheen {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.heading-orange-sheen {
+  /* Couleur principale du site en base */
+  color: #ff6a33;
+  /* Dégradé discret qui traverse le texte */
+  background-image: linear-gradient(90deg, #ff6a33 0%, #ff8a60 25%, #ff6a33 50%, #ff8a60 75%, #ff6a33 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: eveyens-orange-sheen 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heading-orange-sheen {
+    animation: none;
+    /* Fallback lisible si l'animation est désactivée */
+    color: #ff6a33;
+    background: none;
+  }
+}
+
+/* Soulignement animé discret pour les titres */
+@keyframes eveyens-underline-sweep {
+  0% { background-position: -150% 0; }
+  100% { background-position: 150% 0; }
+}
+
+.underline-shine {
+  height: 4px;
+  border-radius: 9999px;
+  background-image: linear-gradient(90deg, rgba(255,106,51,0.15) 0%, rgba(255,106,51,0.9) 50%, rgba(255,106,51,0.15) 100%);
+  background-size: 200% 100%;
+  animation: eveyens-underline-sweep 4s ease-in-out infinite;
+}

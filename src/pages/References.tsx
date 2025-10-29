@@ -9,7 +9,7 @@ export default function References() {
       year: "2025",
       link: "https://www.linkedin.com/posts/elena-chilova-piron-pcc_engagement-collaboration-leadership-activity-7304876779402354691-i8-L?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFKCPEABbi4cViMyEgIxB0sl8YLissAc1KY",
       bgGradient: "from-blue-500 to-blue-700",
-      imageUrl: "/images/edf-smb.png",
+      imageUrl: "/image/edf-smb.webp",
       category: "Grand Groupe"
     },
     {
@@ -18,7 +18,7 @@ export default function References() {
       year: "2024",
       link: "https://bit.ly/3vlR4hc",
       bgGradient: "from-indigo-500 to-indigo-700",
-      imageUrl: "/images/codir-geh.png",
+      imageUrl: "/image/codir-geh.webp",
       category: "Direction"
     },
     {
@@ -27,7 +27,7 @@ export default function References() {
       year: "2024",
       link: "https://bit.ly/3K79wxS",
       bgGradient: "from-green-500 to-green-700",
-      imageUrl: "/images/ville-bezons.jpeg",
+      imageUrl: "/image/ville-bezons.webp",
       category: "Secteur Public"
     },
     {
@@ -36,7 +36,7 @@ export default function References() {
       year: "2023",
       link: "https://bit.ly/3HeSXj0",
       bgGradient: "from-purple-500 to-purple-700",
-      imageUrl: "/images/miepeec-maroc.png",
+      imageUrl: "/image/miepeec-maroc.webp",
       category: "Leadership"
     },
     {
@@ -45,7 +45,7 @@ export default function References() {
       year: "2023",
       link: "https://bit.ly/46UIgfo",
       bgGradient: "from-orange-500 to-orange-700",
-      imageUrl: "/images/business-unite.png",
+      imageUrl: "/image/business-unite.webp",
       category: "Stratégie"
     },
     {
@@ -54,7 +54,7 @@ export default function References() {
       year: "2023",
       link: "https://bit.ly/49cRncy",
       bgGradient: "from-red-500 to-red-700",
-      imageUrl: "/images/chicanrie.png",
+      imageUrl: "/image/chicanrie.webp",
       category: "Formation"
     },
     {
@@ -63,7 +63,7 @@ export default function References() {
       year: "2022",
       link: "http://bit.ly/40mbgKm",
       bgGradient: "from-teal-500 to-teal-700",
-      imageUrl: "/images/edf-hydro.jpeg",
+      imageUrl: "/image/edf-hydro.webp",
       category: "Développement"
     }
   ];

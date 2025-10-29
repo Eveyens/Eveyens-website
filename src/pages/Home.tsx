@@ -9,9 +9,9 @@ export default function Home() {
         <div className="absolute inset-0">
           <img
             className="h-full w-full object-cover"
-            src="/group-session.jpeg"
+            src="/image/group-session.webp"
             alt="Session de coaching collectif"
-            style={{ objectPosition: 'center 42%' }}
+            style={{ objectPosition: 'center 37%' }}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-yellow-600/80 to-orange-600/80"></div>
         </div>
@@ -23,7 +23,7 @@ export default function Home() {
               <span className="text-yellow-200">Coaching Professionnel</span>
             </h1>
             <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-              Ensemble mobilisons l'Intelligence Collective pour aligner les équipes sur les enjeux clés et engager chacun dans des actions concrètes. Générons la Performance d'aujourd'hui et créons celle de demain par des transformations durables
+              Créer les conditions du dialogue profond et de la performance collective.
             </p>
             <div className="space-x-4">
               <a
@@ -38,15 +38,117 @@ export default function Home() {
               >
                 Nous contacter
               </a>
-            </div>
-            <div className="space-x-4 mt-4">
               <a
-                href="/chat"
-                className="inline-block bg-orange-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-600 transition-colors"
+                href="https://evyia.fr"
+                target="_blank"
+                rel="noreferrer noopener"
+                className="inline-block bg-[#FF6F61] text-white px-8 py-3 rounded-lg font-semibold "
               >
-                Posez vos questions à Eve (IA)
+                Découvrir EVYIA
               </a>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pitch Section */}
+      <section className="relative py-16 bg-gradient-to-b from-[#fff5ef] to-white overflow-hidden">
+        {/* Courbe diagonale décorative en écho au logo */}
+        <svg
+          className="pointer-events-none absolute -top-10 -left-10 w-[140%] h-[140%] opacity-20"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          aria-hidden
+        >
+          <path
+            d="M -10,90 C 20,60 50,40 110,10"
+            fill="none"
+            stroke="#ff6a33"
+            strokeWidth="4"
+            strokeLinecap="round"
+          />
+        </svg>
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold heading-orange-sheen">
+              Chez Eveyens, nous transformons la coopération en performance durable.
+            </h2>
+            <div className="mx-auto mt-3 w-28 md:w-32 underline-shine" />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            {/* Texte à gauche */}
+            <div>
+              <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
+                <p>
+                  Ensemble, mobilisons l’Intelligence Collective pour aligner les équipes sur les enjeux clés et transformer les intentions en actions concrètes.
+                </p>
+                <p>
+                  Générons la performance d’aujourd’hui et construisons celle de demain à travers des transformations humaines, durables et porteuses de sens.
+                </p>
+              </div>
+            </div>
+            {/* Image/Logo à droite */}
+            <div className="relative flex md:justify-end">
+              {/* Halo doux */}
+              <div className="absolute right-6 top-1/2 -translate-y-1/2 w-40 h-40 md:w-56 md:h-56 rounded-full bg-[#ff6a33] opacity-20 blur-3xl" />
+              <img
+                src="/image/logo-eveyens.webp"
+                alt="Eveyens"
+                className="relative w-56 md:w-72 lg:w-80 h-auto opacity-95"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* EVYIA Section */}
+      <section className="py-20 bg-gradient-to-br from-[#FF6F61] via-[#ff816f] to-[#ffa095]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-white">
+              EVYIA, le coach digital qui prolonge l’accompagnement humain.
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            {/* Texte à gauche */}
+            <div>
+              <div className="space-y-6 text-lg leading-relaxed text-white/95">
+                <p>
+                  Développé par Eveyens, EVYIA est un coach digital conçu pour accompagner les leaders et les managers dans leurs réflexions du quotidien.
+                </p>
+                <p>
+                  Il prolonge les accompagnements humains en offrant un espace de dialogue disponible à tout moment pour clarifier, se recentrer et avancer avec lucidité.
+                </p>
+                <p>
+                  À travers ses échanges, EVYIA invite à prendre du recul, à reformuler l’essentiel et à transformer la réflexion en action alignée.
+                </p>
+              </div>
+            </div>
+            {/* Image à droite */}
+            <div className="flex md:justify-end">
+              <img
+                src="/image/evyia-conv.webp"
+                alt="Conversation EVYIA"
+                className="w-full max-w-md md:max-w-lg lg:max-w-xl h-auto drop-shadow-xl rounded-lg"
+              />
+            </div>
+          </div>
+          {/* Footer du bloc: logo + CTA */}
+          <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6">
+            <img
+              src="/image/logo-evyia.webp"
+              alt="EVYIA"
+              className="h-14 w-auto md:h-16"
+            />
+            <a
+              href="https://evyia.fr"
+              target="_blank"
+              rel="noreferrer noopener"
+              className="inline-block bg-white text-[#FF6F61] font-semibold px-6 py-3 rounded-lg shadow-sm hover:bg-gray-100 transition-colors"
+            >
+              Découvrir EVYIA
+            </a>
           </div>
         </div>
       </section>
@@ -70,21 +172,21 @@ export default function Home() {
                 description: "Des résultats concrets pour vos équipes et vos organisations.",
                 icon: Target,
                 bgGradient: "from-blue-400 to-blue-600",
-                imageUrl: "/images/resultats.png"
+                imageUrl: "/image/resultats.webp"
               },
               {
                 title: "Innovation au Service de Vos Besoins",
                 description: "Une approche innovante et sur-mesure pour accompagner vos transformations.",
                 icon: Lightbulb,
                 bgGradient: "from-purple-400 to-purple-600",
-                imageUrl: "/images/innovation.png"
+                imageUrl: "/image/innovation.webp"
               },
               {
                 title: "Libérer la Capacité d'Agir",
                 description: "Une expertise en Intelligence Collective pour révéler le potentiel du collectif.",
                 icon: Users,
                 bgGradient: "from-green-400 to-green-600",
-                imageUrl: "/images/capacite-agir.png"
+                imageUrl: "/image/capacite-agir.webp"
               },
             ].map((value, index) => (
               <div key={index} className="group perspective-1000 h-64">
