@@ -123,7 +123,14 @@ export default function Services() {
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
             {mainServices.map((service, index) => (
               <div key={index} className="group perspective-1000 h-80">
-                <div className="relative w-full h-full transition-transform duration-700 transform-style-preserve-3d group-hover:rotate-y-180">
+                <div
+                  className="relative w-full h-full transition-transform duration-700 transform-style-preserve-3d md:group-hover:rotate-y-180"
+                  onClick={(e) => {
+                    if (window.innerWidth < 768) {
+                      e.currentTarget.classList.toggle('rotate-y-180');
+                    }
+                  }}
+                >
                   {/* Recto - Image */}
                   <div className="absolute inset-0 w-full h-full backface-hidden">
                     <div className="w-full h-full rounded-xl shadow-lg relative overflow-hidden">
@@ -249,7 +256,14 @@ export default function Services() {
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {expertises.map((item, index) => (
               <div key={index} className="group perspective-1000 h-64">
-                <div className="relative w-full h-full transition-transform duration-700 transform-style-preserve-3d group-hover:rotate-y-180">
+                <div
+                  className="relative w-full h-full transition-transform duration-700 transform-style-preserve-3d md:group-hover:rotate-y-180"
+                  onClick={(e) => {
+                    if (window.innerWidth < 768) {
+                      e.currentTarget.classList.toggle('rotate-y-180');
+                    }
+                  }}
+                >
                   {/* Recto - Image */}
                   <div className="absolute inset-0 w-full h-full backface-hidden">
                     <div className="w-full h-full rounded-xl shadow-lg relative overflow-hidden">
@@ -299,7 +313,14 @@ export default function Services() {
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {outils.map((outil, index) => (
               <div key={index} className="group perspective-1000 h-64">
-                <div className="relative w-full h-full transition-transform duration-700 transform-style-preserve-3d group-hover:rotate-y-180">
+                <div
+                  className="relative w-full h-full transition-transform duration-700 transform-style-preserve-3d md:group-hover:rotate-y-180"
+                  onClick={(e) => {
+                    if (window.innerWidth < 768) {
+                      e.currentTarget.classList.toggle('rotate-y-180');
+                    }
+                  }}
+                >
                   {/* Recto - Image */}
                   <div className="absolute inset-0 w-full h-full backface-hidden">
                     <div className="w-full h-full rounded-xl shadow-lg relative overflow-hidden">

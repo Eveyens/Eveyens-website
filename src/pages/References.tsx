@@ -120,7 +120,14 @@ export default function References() {
             <div className="grid gap-8 lg:grid-cols-3">
               {recentMissions.map((mission, index) => (
                 <div key={index} className="group perspective-1000 h-72">
-                  <div className="relative w-full h-full transition-transform duration-700 transform-style-preserve-3d group-hover:rotate-y-180">
+                  <div
+                    className="relative w-full h-full transition-transform duration-700 transform-style-preserve-3d md:group-hover:rotate-y-180"
+                    onClick={(e) => {
+                      if (window.innerWidth < 768) {
+                        e.currentTarget.classList.toggle('rotate-y-180');
+                      }
+                    }}
+                  >
                     {/* Recto - Image */}
                     <div className="absolute inset-0 w-full h-full backface-hidden">
                       <div className="w-full h-full rounded-xl shadow-lg relative overflow-hidden">
