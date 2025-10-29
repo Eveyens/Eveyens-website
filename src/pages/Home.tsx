@@ -26,7 +26,7 @@ export default function Home() {
             <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
               Créer les conditions du dialogue profond et de la performance collective.
             </p>
-            <div className="flex flex-col items-center gap-3 md:flex-row md:space-x-4 md:gap-0">
+            <div className="flex flex-col items-center gap-3 md:flex-row md:justify-center md:space-x-4 md:gap-0">
               <a
                 href="/services"
                 className="inline-block bg-white text-orange-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors w-full md:w-auto text-center"
