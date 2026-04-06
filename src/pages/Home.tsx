@@ -1,5 +1,8 @@
-import React from 'react';
-import { CheckCircle, Target, Lightbulb, Users } from 'lucide-react';
+import { Target, Lightbulb, Users } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { FlipCard } from '../components/FlipCard';
+import { EvyiaSection } from '../components/EvyiaSection';
+import { Footer } from '../components/Footer';
 
 export default function Home() {
   return (
@@ -16,47 +19,38 @@ export default function Home() {
           />
           <div className="absolute inset-0 bg-gradient-to-r from-yellow-600/80 to-orange-600/80"></div>
         </div>
-        
+
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
               Facilitation en Intelligence Collective et <br />
               <span className="text-yellow-200">Coaching Professionnel</span>
             </h1>
-            <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+            <p className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto">
               Créer les conditions du dialogue profond et de la performance collective.
             </p>
-            <div className="flex flex-col items-center gap-3 md:flex-row md:justify-center md:space-x-4 md:gap-0">
-              <a
-                href="/services"
+            <div className="flex flex-col items-center gap-4 md:flex-row md:justify-center">
+              <Link
+                to="/services"
                 className="inline-block bg-white text-orange-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors w-full md:w-auto text-center"
               >
                 Découvrir nos services
-              </a>
+              </Link>
               <a
-                href="/contact"
+                href="https://calendly.com/eveyens/rv_avec_elena"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-block border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-orange-600 transition-colors w-full md:w-auto text-center"
               >
-                Nous contacter
-              </a>
-              <a
-                href="https://evyia.fr"
-                target="_blank"
-                rel="noreferrer noopener"
-                className="inline-block bg-[#FF6F61] text-white px-8 py-3 rounded-lg font-semibold w-full md:w-auto text-center"
-              >
-                Découvrir EVYIA
+                Prendre rendez-vous
               </a>
             </div>
           </div>
         </div>
       </section>
 
-      
-
       {/* Pitch Section */}
-      <section className="relative py-16 bg-gradient-to-b from-[#fff5ef] to-white overflow-hidden">
-        {/* Courbe diagonale décorative en écho au logo */}
+      <section className="relative py-20 bg-gradient-to-b from-[#fff5ef] to-white overflow-hidden">
         <svg
           className="pointer-events-none absolute -top-10 -left-10 w-[140%] h-[140%] opacity-20"
           viewBox="0 0 100 100"
@@ -73,27 +67,26 @@ export default function Home() {
         </svg>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-6">
+          <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold heading-orange-sheen">
               Chez Eveyens, nous transformons la coopération en performance durable.
             </h2>
             <div className="mx-auto mt-3 w-28 md:w-32 underline-shine" />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             {/* Texte à gauche */}
             <div>
-              <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
+              <div className="space-y-6 text-xl md:text-2xl text-gray-700 leading-relaxed font-light">
                 <p>
-                  Ensemble, mobilisons l’Intelligence Collective pour aligner les équipes sur les enjeux clés et transformer les intentions en actions concrètes.
+                  Ensemble, mobilisons l'Intelligence Collective pour aligner les équipes sur les enjeux clés et transformer les intentions en actions concrètes.
                 </p>
                 <p>
-                  Générons la performance d’aujourd’hui et construisons celle de demain à travers des transformations humaines, durables et porteuses de sens.
+                  Générons la performance d'aujourd'hui et construisons celle de demain à travers des transformations humaines, durables et porteuses de sens.
                 </p>
               </div>
             </div>
-            {/* Image/Logo à droite */}
+            {/* Logo à droite */}
             <div className="relative flex justify-center md:justify-end mt-8 md:mt-0">
-              {/* Halo doux */}
               <div className="absolute right-6 top-1/2 -translate-y-1/2 w-40 h-40 md:w-56 md:h-56 rounded-full bg-[#ff6a33] opacity-20 blur-3xl" />
               <img
                 src="/image/logo-eveyens.webp"
@@ -102,59 +95,6 @@ export default function Home() {
                 className="relative w-56 md:w-72 lg:w-80 h-auto opacity-95"
               />
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* EVYIA Section */}
-      <section className="py-20 bg-gradient-to-br from-[#FF6F61] via-[#ff816f] to-[#ffa095]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
-              EVYIA, le coach digital qui prolonge l’accompagnement humain.
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            {/* Texte à gauche */}
-            <div>
-              <div className="space-y-6 text-lg leading-relaxed text-white/95">
-                <p>
-                  Développé par Eveyens, EVYIA est un coach digital conçu pour accompagner les leaders et les managers dans leurs réflexions du quotidien.
-                </p>
-                <p>
-                  Il prolonge les accompagnements humains en offrant un espace de dialogue disponible à tout moment pour clarifier, se recentrer et avancer avec lucidité.
-                </p>
-                <p>
-                  À travers ses échanges, EVYIA invite à prendre du recul, à reformuler l’essentiel et à transformer la réflexion en action alignée.
-                </p>
-              </div>
-            </div>
-            {/* Image à droite */}
-            <div className="flex md:justify-end">
-              <img
-                src="/image/evyia-conv.webp"
-                loading="lazy"
-                alt="Conversation EVYIA"
-                className="w-full max-w-md md:max-w-lg lg:max-w-xl h-auto drop-shadow-xl rounded-lg"
-              />
-            </div>
-          </div>
-          {/* Footer du bloc: logo + CTA */}
-          <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6">
-            <img
-              src="/image/logo-evyia.webp"
-              loading="lazy"
-              alt="EVYIA"
-              className="h-14 w-auto md:h-16"
-            />
-            <a
-              href="https://evyia.fr"
-              target="_blank"
-              rel="noreferrer noopener"
-              className="inline-block bg-white text-[#FF6F61] font-semibold px-6 py-3 rounded-lg shadow-sm hover:bg-gray-100 transition-colors"
-            >
-              Découvrir EVYIA
-            </a>
           </div>
         </div>
       </section>
@@ -177,83 +117,36 @@ export default function Home() {
                 title: "Des Résultats qui Comptent",
                 description: "Des résultats concrets pour vos équipes et vos organisations.",
                 icon: Target,
-                bgGradient: "from-blue-400 to-blue-600",
                 imageUrl: "/image/resultats.webp"
               },
               {
                 title: "Innovation au Service de Vos Besoins",
                 description: "Une approche innovante et sur-mesure pour accompagner vos transformations.",
                 icon: Lightbulb,
-                bgGradient: "from-purple-400 to-purple-600",
                 imageUrl: "/image/innovation.webp"
               },
               {
                 title: "Libérer la Capacité d'Agir",
                 description: "Une expertise en Intelligence Collective pour révéler le potentiel du collectif.",
                 icon: Users,
-                bgGradient: "from-green-400 to-green-600",
                 imageUrl: "/image/capacite-agir.webp"
               },
             ].map((value, index) => (
-              <div key={index} className="group perspective-1000 h-64">
-                <div
-                  className="relative w-full h-full transition-transform duration-700 transform-style-preserve-3d md:group-hover:rotate-y-180"
-                  onClick={(e) => {
-                    if (window.innerWidth < 768) {
-                      e.currentTarget.classList.toggle('rotate-y-180');
-                    }
-                  }}
-                >
-                  {/* Recto - Image */}
-                  <div className="absolute inset-0 w-full h-full backface-hidden">
-                    <div className="w-full h-full rounded-xl shadow-lg relative overflow-hidden">
-                      <img 
-                        src={value.imageUrl} 
-                        alt={value.title}
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute inset-0 bg-black/50"></div>
-                      <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
-                        <value.icon className="w-20 h-20 text-white mb-4" />
-                        <div className="text-center px-4">
-                          <h3 className="text-xl font-bold">{value.title}</h3>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Verso - Texte */}
-                  <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180">
-                    <div className="w-full h-full bg-white rounded-xl shadow-lg p-6 flex flex-col justify-center items-center text-center">
-                      <div className="flex items-center justify-center w-12 h-12 bg-orange-100 rounded-lg mb-4">
-                        <CheckCircle className="w-6 h-6 text-orange-600" />
-                      </div>
-                      <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                        {value.title}
-                      </h3>
-                      <p className="text-gray-600 leading-relaxed">
-                        {value.description}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <FlipCard
+                key={index}
+                height="h-64"
+                front={{ imageUrl: value.imageUrl, title: value.title, icon: value.icon }}
+                back={{ title: value.title, description: value.description, variant: 'default', gradient: '#ffffff' }}
+              />
             ))}
           </div>
         </div>
       </section>
 
-      {/* Liens vers les autres pages - Bottom */}
-      <section className="py-12 border-t">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 text-center">
-            <a href="/about" className="block w-full rounded-lg border hover:border-orange-300 hover:bg-orange-50 text-gray-700 font-medium py-3 transition-colors">À propos</a>
-            <a href="/services" className="block w-full rounded-lg border hover:border-orange-300 hover:bg-orange-50 text-gray-700 font-medium py-3 transition-colors">Services</a>
-            <a href="/references" className="block w-full rounded-lg border hover:border-orange-300 hover:bg-orange-50 text-gray-700 font-medium py-3 transition-colors">Références</a>
-            <a href="/contact" className="block w-full rounded-lg border hover:border-orange-300 hover:bg-orange-50 text-gray-700 font-medium py-3 transition-colors">Contact</a>
-          </div>
-        </div>
-      </section>
+      {/* Evyia Section */}
+      <EvyiaSection variant="home" />
+
+      <Footer />
     </div>
   );
 }

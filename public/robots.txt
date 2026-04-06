@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://eveyens.fr/sitemap.xml

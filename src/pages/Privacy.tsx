@@ -1,13 +1,14 @@
-import React from 'react';
 import { Shield, Mail, Clock, Users, Lock, FileText } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { SEO } from '../components/SEO';
 
 export default function Privacy() {
   return (
     <div className="min-h-screen bg-white pt-20">
-      <head>
-        <title>Politique de confidentialité | Eveyens</title>
-        <meta name="description" content="Politique de confidentialité d'Eveyens pour l'utilisation de notre service WhatsApp et la protection de vos données personnelles." />
-      </head>
+      <SEO
+        title="Politique de confidentialité | Eveyens"
+        description="Politique de confidentialité d'Eveyens pour l'utilisation de notre service WhatsApp et la protection de vos données personnelles."
+      />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-16">
           <div className="flex justify-center mb-4">
@@ -151,7 +152,7 @@ export default function Privacy() {
             <Mail className="h-8 w-8 text-orange-500" />
           </div>
           <p className="text-base text-gray-500">
-            Des questions ? <a href="/contact" className="text-orange-500 hover:text-orange-600 underline">Contactez-nous</a> pour plus d'informations.
+            Des questions ? <Link to="/contact" className="text-orange-500 hover:text-orange-600 underline">Contactez-nous</Link> pour plus d'informations.
           </p>
         </div>
       </div>
