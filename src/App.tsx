@@ -7,6 +7,8 @@ import Services from './pages/Services';
 import References from './pages/References';
 import Contact from './pages/Contact';
 import Privacy from './pages/Privacy';
+import DiagnosticLanding from './pages/DiagnosticLanding';
+import DiagnosticExperience from './pages/DiagnosticExperience';
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
             <Route path="/references" element={<References />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy" element={<Privacy />} />
+            <Route path="/diagnostic-temps-collectifs" element={<DiagnosticLanding />} />
+            <Route path="/diagnostic-temps-collectifs/experience" element={<DiagnosticExperience />} />
           </Routes>
         </main>
       </div>

@@ -1,14 +1,32 @@
-import { Target, Lightbulb, Users } from 'lucide-react';
+import { ChevronDown, Gift, Lightbulb, Target, Users } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FlipCard } from '../components/FlipCard';
 import { EvyiaSection } from '../components/EvyiaSection';
 import { Footer } from '../components/Footer';
 
 export default function Home() {
+  const [showEvyiaPopup, setShowEvyiaPopup] = useState(false);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setShowEvyiaPopup(true);
+    }, 1500);
+
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  const handleScrollToEvyia = () => {
+    const evyiaSection = document.getElementById('evyia-section');
+    if (evyiaSection) {
+      evyiaSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-yellow-400 via-yellow-500 to-orange-500 text-white">
+      <section className="relative overflow-visible bg-gradient-to-br from-yellow-400 via-yellow-500 to-orange-500 text-white">
         <div className="absolute inset-0">
           <img
             className="h-full w-full object-cover"
@@ -37,7 +55,7 @@ export default function Home() {
                 Découvrir nos services
               </Link>
               <a
-                href="https://calendly.com/eveyens/rv_avec_elena"
+                href="https://calendly.com/eveyens/rdv_mieux-vous-comprendre"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-orange-600 transition-colors w-full md:w-auto text-center"
@@ -47,6 +65,21 @@ export default function Home() {
             </div>
           </div>
         </div>
+
+        {showEvyiaPopup && (
+          <div className="absolute bottom-4 right-4 z-20 sm:bottom-6 sm:right-6">
+            <button
+              type="button"
+              aria-label="Aller à la section Evyia"
+              onClick={handleScrollToEvyia}
+              className="flex items-center gap-2 rounded-full border-2 border-[#FF6F61] bg-white px-5 py-2.5 text-sm font-bold text-[#FF6F61] shadow-[0_0_0_0_rgba(255,111,97,0.75)] transition-transform duration-300 hover:scale-110 hover:bg-orange-50 animate-[pulse_1.2s_ease-in-out_infinite,bounce_2.2s_ease-in-out_infinite]"
+            >
+              <Gift size={16} />
+              <span>Bonus Evyia</span>
+              <ChevronDown size={16} />
+            </button>
+          </div>
+        )}
       </section>
 
       {/* Pitch Section */}
@@ -84,6 +117,14 @@ export default function Home() {
                   Générons la performance d'aujourd'hui et construisons celle de demain à travers des transformations humaines, durables et porteuses de sens.
                 </p>
               </div>
+              <div className="mt-8">
+                <Link
+                  to="/diagnostic-temps-collectifs"
+                  className="inline-block rounded-lg bg-[#FF6F61] px-6 py-3 text-base font-semibold text-white transition hover:opacity-90"
+                >
+                  Lancer votre diagnostic
+                </Link>
+              </div>
             </div>
             {/* Logo à droite */}
             <div className="relative flex justify-center md:justify-end mt-8 md:mt-0">
@@ -98,6 +139,11 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Evyia Section */}
+      <div id="evyia-section">
+        <EvyiaSection variant="home" />
+      </div>
 
       {/* Values Section */}
       <section className="py-24 bg-gray-50">
@@ -142,9 +188,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Evyia Section */}
-      <EvyiaSection variant="home" />
 
       <Footer />
     </div>

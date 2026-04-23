@@ -255,7 +255,7 @@ export default function References() {
           <p className="text-gray-400 mb-6">Discutons de vos enjeux et construisons quelque chose ensemble.</p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <a
-              href="https://calendly.com/eveyens/rv_avec_elena"
+              href="https://calendly.com/eveyens/rdv_mieux-vous-comprendre"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-7 py-3 rounded-lg transition-colors"

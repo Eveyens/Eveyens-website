@@ -28,7 +28,7 @@ export function Footer() {
             ))}
           </nav>
           <a
-            href="https://calendly.com/eveyens/rv_avec_elena"
+            href="https://calendly.com/eveyens/rdv_mieux-vous-comprendre"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg transition-colors whitespace-nowrap"

@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 interface EvyiaSectionProps {
   variant: 'home' | 'services';
 }
@@ -45,10 +47,10 @@ export function EvyiaSection({ variant }: EvyiaSectionProps) {
             </p>
           )}
           <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${isHome ? 'text-white' : 'text-gray-900'}`}>
-            Evyia, l'écosystème digital qui prolonge l'accompagnement humain.
+            Evyia : un bonus offert pour prolonger vos accompagnements Eveyens.
           </h2>
           <p className={`text-lg max-w-2xl mx-auto ${isHome ? 'text-white/85' : 'text-gray-600'}`}>
-            Développé par Eveyens, Evyia est un écosystème digital conçu pour accompagner les leaders et les managers dans leurs réflexions du quotidien — à tout moment, en continuité de l'accompagnement humain.
+            Inclus sans surcoût dans les accompagnements Eveyens, Evyia permet aux leaders et aux managers de continuer à avancer entre les sessions, avec un cadre structuré et immédiatement actionnable.
           </p>
         </div>
 
@@ -85,23 +87,35 @@ export function EvyiaSection({ variant }: EvyiaSectionProps) {
           </div>
           <div className={`space-y-6 text-lg leading-relaxed ${isHome ? 'text-white/90' : 'text-gray-700'}`}>
             <p>
-              À travers ses trois modules, Evyia invite à prendre du recul, à reformuler l'essentiel et à transformer la réflexion en action alignée.
+              Avec ses trois modules, Evyia aide vos équipes à prendre du recul, reformuler l'essentiel et transformer la réflexion en décisions concrètes.
             </p>
             <p>
-              Il prolonge les accompagnements humains en offrant un espace de dialogue structuré, disponible à tout moment pour clarifier, se recentrer et avancer avec lucidité.
+              Cet environnement digital est offert dans le cadre des accompagnements Eveyens : un vrai bonus pour maintenir l'élan, la clarté et la mise en action.
             </p>
-            <a
-              href="https://evyia.fr"
-              target="_blank"
-              rel="noreferrer noopener"
-              className={`inline-block font-semibold px-7 py-3 rounded-lg shadow-sm transition-colors ${
-                isHome
-                  ? 'bg-white text-[#FF6F61] hover:bg-gray-100'
-                  : 'bg-[#FF6F61] text-white hover:opacity-90'
-              }`}
-            >
-              Découvrir Evyia →
-            </a>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <a
+                href="https://evyia.fr"
+                target="_blank"
+                rel="noreferrer noopener"
+                className={`inline-block font-semibold px-7 py-3 rounded-lg shadow-sm transition-colors text-center ${
+                  isHome
+                    ? 'bg-white text-[#FF6F61] hover:bg-gray-100'
+                    : 'bg-[#FF6F61] text-white hover:opacity-90'
+                }`}
+              >
+                Découvrir Evyia →
+              </a>
+              <Link
+                to="/contact"
+                className={`inline-block font-semibold px-7 py-3 rounded-lg shadow-sm transition-colors text-center ${
+                  isHome
+                    ? 'border border-white text-white hover:bg-white hover:text-[#FF6F61]'
+                    : 'border border-[#FF6F61] text-[#FF6F61] hover:bg-[#FF6F61] hover:text-white'
+                }`}
+              >
+                Nous contacter
+              </Link>
+            </div>
           </div>
         </div>
       </div>
