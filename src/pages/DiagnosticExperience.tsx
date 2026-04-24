@@ -1,8 +1,9 @@
 import { FormEvent, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, CheckCircle2, Mail, RotateCcw } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Mail, RotateCcw } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { Footer } from '../components/Footer';
+import { trackEvent, usePageView } from '../utils/analytics';
 
 type AnswerValue = 'A' | 'B' | 'C';
 
@@ -14,6 +15,7 @@ interface QuizQuestion {
 }
 
 const calendlyUrl = 'https://calendly.com/eveyens/rdv_mieux-vous-comprendre';
+const diagnosticWebhookUrl = import.meta.env.VITE_DIAGNOSTIC_WEBHOOK_URL;
 
 const questions: QuizQuestion[] = [
   {
@@ -124,12 +126,61 @@ function getResult(score: number) {
   };
 }
 
+function getPriorityThemes(answers: Record<number, AnswerValue>) {
+  const ranking = questions
+    .map((question) => ({
+      theme: question.theme,
+      answer: answers[question.id],
+      points: answers[question.id] ? pointsByAnswer[answers[question.id]] : 2,
+    }))
+    .sort((a, b) => a.points - b.points);
+
+  const lowPriority = ranking.filter((item) => item.points === 0);
+  const mediumPriority = ranking.filter((item) => item.points === 1);
+
+  const priorities = [...lowPriority, ...mediumPriority].slice(0, 2);
+  return priorities.map((item) => item.theme);
+}
+
+function getPersonalizedQuickAnalysis(
+  score: number,
+  answers: Record<number, AnswerValue>
+) {
+  const base = getResult(score);
+  const priorities = getPriorityThemes(answers);
+
+  if (priorities.length === 0) {
+    return {
+      ...base,
+      quickFocus:
+        'Vos réponses montrent une bonne homogénéité. Priorité: maintenir la régularité d\'exécution entre décisions et actions.',
+    };
+  }
+
+  if (priorities.length === 1) {
+    return {
+      ...base,
+      quickFocus: `Point de vigilance principal: ${priorities[0]}. C'est le levier prioritaire à renforcer pour augmenter l'impact de vos temps collectifs.`,
+    };
+  }
+
+  return {
+    ...base,
+    quickFocus: `Vos 2 priorités immédiates: ${priorities[0]} et ${priorities[1]}. En les traitant en premier, vous augmentez rapidement la qualité d'impact de vos temps collectifs.`,
+  };
+}
+
 export default function DiagnosticExperience() {
+  usePageView('diagnostic_experience_view');
+
   const [activeThemeId, setActiveThemeId] = useState(1);
   const [answers, setAnswers] = useState<Record<number, AnswerValue>>({});
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [showResults, setShowResults] = useState(false);
   const [email, setEmail] = useState('');
-  const [emailSubmitted, setEmailSubmitted] = useState(false);
+  const [submissionState, setSubmissionState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [submissionMessage, setSubmissionMessage] = useState('');
 
   const answeredCount = Object.keys(answers).length;
   const progress = Math.round((answeredCount / questions.length) * 100);
@@ -149,11 +200,13 @@ export default function DiagnosticExperience() {
       }, 0),
     [answers]
   );
-  const result = useMemo(() => getResult(totalScore), [totalScore]);
+  const result = useMemo(() => getPersonalizedQuickAnalysis(totalScore, answers), [answers, totalScore]);
 
   const handleAnswer = (themeId: number, value: AnswerValue) => {
     const updated = { ...answers, [themeId]: value };
     setAnswers(updated);
+    const theme = questions.find((q) => q.id === themeId)?.theme ?? '';
+    trackEvent({ event: 'diagnostic_question_answered', question_id: themeId, answer: value, theme });
     const nextUnanswered = questions.find((question) => !updated[question.id]);
     if (nextUnanswered) {
       setActiveThemeId(nextUnanswered.id);
@@ -165,6 +218,7 @@ export default function DiagnosticExperience() {
       return;
     }
     setShowResults(true);
+    trackEvent({ event: 'diagnostic_results_shown', score: totalScore, level: result.level });
     const el = document.getElementById('diagnostic-resultat');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -172,34 +226,97 @@ export default function DiagnosticExperience() {
   };
 
   const handleReset = () => {
+    trackEvent({ event: 'diagnostic_diagnostic_reset' });
     setActiveThemeId(1);
     setAnswers({});
+    setFirstName('');
+    setLastName('');
     setShowResults(false);
     setEmail('');
-    setEmailSubmitted(false);
+    setSubmissionState('idle');
+    setSubmissionMessage('');
   };
 
-  const handleEmailSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleEmailSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!email.trim()) {
+    if (!email.trim() || !firstName.trim() || !lastName.trim()) {
       return;
     }
-    setEmailSubmitted(true);
+
+    if (!diagnosticWebhookUrl) {
+      setSubmissionState('error');
+      setSubmissionMessage("Le webhook n'est pas configuré. Merci de réessayer plus tard.");
+      return;
+    }
+
+    const webhookAnswers = questions.reduce<Record<string, AnswerValue>>((acc, question) => {
+      const value = answers[question.id];
+      if (value) {
+        acc[`q${question.id}`] = value;
+      }
+      return acc;
+    }, {});
+
+    setSubmissionState('loading');
+    setSubmissionMessage('');
+
+    try {
+      const response = await fetch(diagnosticWebhookUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstName: firstName.trim(),
+          lastName: lastName.trim(),
+          email: email.trim(),
+          answers: webhookAnswers,
+          score: totalScore,
+          level: result.level,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Webhook error');
+      }
+
+      setSubmissionState('success');
+      setSubmissionMessage('Votre demande a bien ete envoyee. Vous recevrez votre synthese par email.');
+      trackEvent({ event: 'diagnostic_email_submitted', status: 'success', score: totalScore, level: result.level });
+    } catch {
+      setSubmissionState('error');
+      setSubmissionMessage("Une erreur est survenue lors de l'envoi. Merci de reessayer.");
+      trackEvent({ event: 'diagnostic_email_submitted', status: 'error', score: totalScore, level: result.level });
+    }
   };
 
-  const mailtoSummary = useMemo(() => {
-    const lines = questions.map((question) => `${question.theme}: ${answers[question.id] ?? '-'}`);
-    const body = `Bonjour,%0D%0AJe souhaite recevoir ma synthese detaillee.%0D%0A%0D%0AScore: ${totalScore}/14%0D%0A${lines.join(
-      '%0D%0A'
-    )}%0D%0A%0D%0AEmail: ${email}`;
-    return `mailto:contact@eveyens.com?subject=Synthese%20diagnostic%20temps%20collectifs&body=${body}`;
-  }, [answers, email, totalScore]);
+  const segmentAngle = 360 / questions.length;
+  const wheelGradient = useMemo(() => {
+    const getSegmentColor = (questionId: number) => {
+      const answer = answers[questionId];
+      if (answer === 'A') {
+        return '#22c55e';
+      }
+      if (answer === 'B') {
+        return '#f59e0b';
+      }
+      if (answer === 'C') {
+        return '#ef4444';
+      }
+      return '#ffd0b3';
+    };
 
-  const wheelGradient =
-    'conic-gradient(#ff6a33 0deg 51deg, #ff8f5e 51deg 102deg, #ffb08a 102deg 153deg, #ffd0b3 153deg 204deg, #ffb08a 204deg 255deg, #ff8f5e 255deg 306deg, #ff6a33 306deg 360deg)';
+    const slices = questions.map((question, index) => {
+      const start = index * segmentAngle;
+      const end = (index + 1) * segmentAngle;
+      return `${getSegmentColor(question.id)} ${start}deg ${end}deg`;
+    });
+
+    return `conic-gradient(${slices.join(', ')})`;
+  }, [answers, segmentAngle]);
 
   return (
-    <div className="min-h-screen bg-white pt-20">
+    <div className="min-h-screen bg-white pt-14">
       <SEO
         title="Votre diagnostic interactif | Eveyens"
         description="Réalisez votre diagnostic interactif des temps collectifs en 7 thèmes, puis obtenez un résultat immédiat et une synthèse par email."
@@ -244,12 +361,11 @@ export default function DiagnosticExperience() {
                   style={{ background: wheelGradient }}
                 >
                   {questions.map((question, index) => {
-                    const angle = (index * 360) / questions.length - 90;
+                    const angle = (index + 0.5) * segmentAngle - 90;
                     const radians = (angle * Math.PI) / 180;
-                    const radius = 40;
+                    const radius = 36;
                     const x = 50 + radius * Math.cos(radians);
                     const y = 50 + radius * Math.sin(radians);
-                    const answered = Boolean(answers[question.id]);
                     const active = activeThemeId === question.id;
 
                     return (
@@ -257,18 +373,27 @@ export default function DiagnosticExperience() {
                         key={question.id}
                         type="button"
                         onClick={() => setActiveThemeId(question.id)}
-                        className={`absolute flex max-w-[130px] -translate-x-1/2 -translate-y-1/2 flex-col items-center rounded-full border-2 px-3 py-2 text-center text-xs font-semibold shadow transition hover:scale-105 ${
-                          answered
-                            ? 'border-green-400 bg-white text-green-700'
-                            : active
-                              ? 'border-[#ff6a33] bg-white text-[#ff6a33]'
-                              : 'border-white/70 bg-white/95 text-gray-700'
+                        className={`absolute flex w-[92px] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-2xl border-2 px-2 py-1.5 text-center text-[10px] font-semibold leading-tight shadow transition hover:scale-105 sm:w-[104px] lg:w-[112px] ${
+                          active
+                            ? 'border-[#ff6a33] bg-white text-[#ff6a33]'
+                            : 'border-white/70 bg-white/95 text-gray-700'
                         }`}
                         style={{ left: `${x}%`, top: `${y}%` }}
                       >
-                        <span className="text-[10px] uppercase tracking-wider text-gray-400">Thème {question.id}</span>
-                        <span>{answered ? 'Complété' : question.theme}</span>
+                        <span className="text-[9px] uppercase tracking-wider text-gray-400">Thème {question.id}</span>
+                        <span>{question.theme}</span>
                       </button>
+                    );
+                  })}
+
+                  {questions.map((question, index) => {
+                    const angle = index * segmentAngle;
+                    return (
+                      <span
+                        key={`separator-${question.id}`}
+                        className="absolute left-1/2 top-1/2 block h-[50%] w-[2px] origin-bottom bg-white/85"
+                        style={{ transform: `translate(-50%, -100%) rotate(${angle}deg)` }}
+                      />
                     );
                   })}
 
@@ -367,13 +492,130 @@ export default function DiagnosticExperience() {
               <p className="mt-2 text-gray-700">Score global : {totalScore}/14</p>
               <p className="mt-4 text-lg font-semibold text-gray-900">{result.firstLook}</p>
               <p className="mt-3 text-gray-700">{result.message}</p>
+              <p className="mt-3 rounded-lg border border-[#ffd6c2] bg-white p-3 text-gray-700">{result.quickFocus}</p>
               <p className="mt-3 text-gray-700">{result.risk}</p>
+
+              <div className="mt-8 rounded-2xl border border-[#ffd6c2] bg-white p-6">
+                <h3 className="text-lg font-bold text-gray-900">Recevoir ma synthèse plus poussée</h3>
+                <p className="mt-2 text-sm text-gray-600">
+                  Accédez à une lecture structurée de votre diagnostic avec des solutions concrètes, les avantages
+                  attendus et un cadre clair pour passer à l'action.
+                </p>
+                <div className="mt-4 rounded-xl border border-gray-200 bg-gradient-to-b from-[#eef2f9] to-[#f6f8fc] p-3">
+                  <div className="mb-2 flex items-center justify-between">
+                    <span className="rounded-full bg-white px-2 py-0.5 text-[10px] font-semibold text-[#ff6a33] shadow-sm">
+                      Aperçu synthèse
+                    </span>
+                    <span className="text-[10px] text-gray-500">Version détaillée envoyée par email</span>
+                  </div>
+                  <div className="relative overflow-hidden rounded-md border border-gray-200 bg-white p-2.5">
+                    <div className="pointer-events-none select-none">
+                      <div className="mb-1.5 text-center">
+                        <div className="text-[10px] font-bold tracking-[0.22em] text-[#102a57]">EVEYENS</div>
+                        <div className="text-[8px] uppercase tracking-wider text-[#c4a15a]">
+                          Diagnostic personnalisé
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-7 gap-1">
+                        {questions.map((question) => (
+                          <div
+                            key={`preview-head-${question.id}`}
+                            className="flex flex-col items-center justify-start gap-1 rounded-sm border border-gray-200 bg-white px-1 py-1.5 text-center"
+                          >
+                            <span className="flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#102a57] text-[7px] font-bold text-white">
+                              {question.id}
+                            </span>
+                            <span className="text-[7px] font-semibold uppercase leading-[1.05] text-[#102a57]">
+                              {question.theme}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="relative mt-2 min-h-[52px]">
+                        <div className="pointer-events-none select-none space-y-1.5 pb-1 blur-[3px]">
+                          {(['Conception', 'Animation', 'Suivi'] as const).map((label) => (
+                            <div key={label} className="flex items-stretch gap-1">
+                              <div className="flex w-[22px] shrink-0 flex-col items-center justify-center rounded-sm bg-[#102a57] px-0.5 py-1 text-center text-[6px] font-bold uppercase leading-tight text-white">
+                                {label.slice(0, 4)}
+                              </div>
+                              {questions.map((question) => (
+                                <div
+                                  key={`${label}-${question.id}`}
+                                  className="min-h-[10px] flex-1 rounded-sm border border-gray-200 bg-gray-50 px-0.5 py-0.5"
+                                >
+                                  <div className="mb-0.5 h-0.5 w-full rounded bg-gray-300/80" />
+                                  <div className="h-0.5 w-4/5 rounded bg-gray-300/60" />
+                                </div>
+                              ))}
+                            </div>
+                          ))}
+                        </div>
+                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent from-10% via-white/70 to-white backdrop-blur-[2px]" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <ul className="mt-4 space-y-1 text-sm text-gray-700">
+                  <li>- Analyse structurée de vos temps collectifs</li>
+                  <li>- Solutions prioritaires et leviers concrets</li>
+                  <li>- Avantages attendus à court et moyen terme</li>
+                </ul>
+                <form onSubmit={handleEmailSubmit} className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  <input
+                    type="text"
+                    required
+                    value={firstName}
+                    onChange={(event) => setFirstName(event.target.value)}
+                    placeholder="Votre prenom"
+                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-700 focus:border-[#ff6a33] focus:outline-none focus:ring-2 focus:ring-[#ff6a33]/20"
+                  />
+                  <input
+                    type="text"
+                    required
+                    value={lastName}
+                    onChange={(event) => setLastName(event.target.value)}
+                    placeholder="Votre nom"
+                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-700 focus:border-[#ff6a33] focus:outline-none focus:ring-2 focus:ring-[#ff6a33]/20"
+                  />
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                    placeholder="votre@email.com"
+                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-700 focus:border-[#ff6a33] focus:outline-none focus:ring-2 focus:ring-[#ff6a33]/20 sm:col-span-2"
+                  />
+                  <button
+                    type="submit"
+                    disabled={submissionState === 'loading'}
+                    className="inline-flex items-center justify-center gap-2 rounded-lg bg-gray-900 px-5 py-3 font-semibold text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60 sm:col-span-2"
+                  >
+                    <Mail size={16} />
+                    {submissionState === 'loading' ? 'Envoi en cours...' : 'Recevoir ma synthese'}
+                  </button>
+                </form>
+                <p className="mt-2 text-xs text-gray-500">Envoi par email en quelques instants.</p>
+                {submissionState !== 'idle' && submissionMessage && (
+                  <div className="mt-3 rounded-lg border border-[#ffd6c2] bg-[#fff5ef] p-3 text-sm text-gray-800">
+                    {submissionMessage}
+                  </div>
+                )}
+              </div>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <a
                   href={calendlyUrl}
                   target="_blank"
                   rel="noreferrer noopener"
+                  onClick={() =>
+                    trackEvent({
+                      event: 'diagnostic_calendly_click',
+                      score: totalScore,
+                      level: result.level,
+                    })
+                  }
                   className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#ff6a33] px-6 py-3 font-semibold text-white transition hover:opacity-90"
                 >
                   <CheckCircle2 size={18} />
@@ -388,54 +630,8 @@ export default function DiagnosticExperience() {
                   Refaire le diagnostic
                 </button>
               </div>
-
-              <div className="mt-8 rounded-2xl border border-[#ffd6c2] bg-white p-6">
-                <h3 className="text-lg font-bold text-gray-900">Recevoir une synthèse plus poussée</h3>
-                <p className="mt-2 text-sm text-gray-600">
-                  Entrez votre email pour obtenir une lecture approfondie de vos forces, vos zones de risque et vos
-                  priorités d'action.
-                </p>
-                <form onSubmit={handleEmailSubmit} className="mt-4 flex flex-col gap-3 sm:flex-row">
-                  <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(event) => setEmail(event.target.value)}
-                    placeholder="votre@email.com"
-                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-700 focus:border-[#ff6a33] focus:outline-none focus:ring-2 focus:ring-[#ff6a33]/20"
-                  />
-                  <button
-                    type="submit"
-                    className="inline-flex items-center justify-center gap-2 rounded-lg bg-gray-900 px-5 py-3 font-semibold text-white transition hover:opacity-90"
-                  >
-                    <Mail size={16} />
-                    Recevoir ma synthèse
-                  </button>
-                </form>
-                {emailSubmitted && (
-                  <div className="mt-3 rounded-lg border border-[#ffd6c2] bg-[#fff5ef] p-3 text-sm text-gray-800">
-                    Votre synthèse est prête. Cliquez ici pour finaliser l'envoi :{' '}
-                    <a href={mailtoSummary} className="font-semibold text-[#ff6a33] underline">
-                      envoyer ma demande
-                    </a>
-                  </div>
-                )}
-              </div>
             </div>
           )}
-
-          <div className="mt-16 flex flex-col items-center gap-3 text-center">
-            <p className="text-gray-600">Vous préférez échanger directement ?</p>
-            <a
-              href={calendlyUrl}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="inline-flex items-center gap-2 rounded-lg border-2 border-[#ff6a33] px-6 py-3 font-semibold text-[#ff6a33] transition hover:bg-[#ff6a33] hover:text-white"
-            >
-              Prendre rendez-vous avec Eveyens
-              <ArrowRight size={18} />
-            </a>
-          </div>
         </div>
       </section>
 

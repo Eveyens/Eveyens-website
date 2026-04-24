@@ -49,10 +49,10 @@ export default function Home() {
             </p>
             <div className="flex flex-col items-center gap-4 md:flex-row md:justify-center">
               <Link
-                to="/services"
+                to="/diagnostic-temps-collectifs"
                 className="inline-block bg-white text-orange-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors w-full md:w-auto text-center"
               >
-                Découvrir nos services
+                Lancer votre diagnostic
               </Link>
               <a
                 href="https://calendly.com/eveyens/rdv_mieux-vous-comprendre"
@@ -119,10 +119,10 @@ export default function Home() {
               </div>
               <div className="mt-8">
                 <Link
-                  to="/diagnostic-temps-collectifs"
+                  to="/services"
                   className="inline-block rounded-lg bg-[#FF6F61] px-6 py-3 text-base font-semibold text-white transition hover:opacity-90"
                 >
-                  Lancer votre diagnostic
+                  Découvrir nos services
                 </Link>
               </div>
             </div>
