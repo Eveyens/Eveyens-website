@@ -27,3 +27,6 @@ dist-ssr
 .env
 .env.local
 .env.*.local
+
+# Documentation interne n8n (ne doit pas partir sur GitHub)
+n8n/
