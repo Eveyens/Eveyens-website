@@ -52,7 +52,7 @@ export default function Home() {
                 to="/diagnostic-temps-collectifs"
                 className="inline-block bg-white text-orange-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors w-full md:w-auto text-center"
               >
-                Lancer votre diagnostic
+                Lancer le diagnostic de vos temps collectifs
               </Link>
               <a
                 href="https://calendly.com/eveyens/rdv_mieux-vous-comprendre"

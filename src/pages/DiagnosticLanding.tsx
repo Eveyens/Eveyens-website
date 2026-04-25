@@ -60,7 +60,7 @@ function CtaButton({
       className={classes}
       onClick={() => trackEvent({ event: 'diagnostic_landing_cta_click', cta_position: position })}
     >
-      Commencer votre diagnostic
+      Lancer le diagnostic de vos temps collectifs
       <ArrowRight size={18} />
     </Link>
   );

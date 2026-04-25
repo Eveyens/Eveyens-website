@@ -51,7 +51,7 @@ const questions: QuizQuestion[] = [
   {
     id: 4,
     theme: 'Transformation',
-    question: 'Les changements décidés :',
+    question: 'Après vos temps collectifs, les changements décidés :',
     answers: [
       { value: 'A', label: "S'ancrent durablement" },
       { value: 'B', label: "S'ancrent partiellement" },
@@ -71,7 +71,7 @@ const questions: QuizQuestion[] = [
   {
     id: 6,
     theme: 'Impact réel',
-    question: 'Quelques semaines après, que reste-t-il ?',
+    question: 'Quelques semaines après vos temps collectifs, que reste-t-il ?',
     answers: [
       { value: 'A', label: 'Des actions concrètes sont mises en œuvre' },
       { value: 'B', label: 'Quelques avancées visibles' },
@@ -501,16 +501,37 @@ export default function DiagnosticExperience() {
               <p className="mt-3 text-gray-700">{result.risk}</p>
 
               <div className="mt-8 rounded-2xl border border-[#ffd6c2] bg-white p-6">
-                <h3 className="text-lg font-bold text-gray-900">Recevoir ma synthèse plus poussée</h3>
-                <p className="mt-2 text-sm text-gray-600">
-                  Accédez à une lecture structurée de votre diagnostic avec des leviers prioritaires, les avantages
-                  attendus et un cadre clair pour passer à l&apos;action.
+                <p className="inline-flex items-center rounded-full bg-[#fff5ef] px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[#ff6a33]">
+                  Version complète personnalisée
                 </p>
-                <ul className="mt-4 space-y-1 text-sm text-gray-700">
-                  <li>- Analyse structurée de vos temps collectifs</li>
-                  <li>- Leviers prioritaires à activer</li>
-                  <li>- Avantages attendus à court et moyen terme</li>
-                </ul>
+                <h3 className="mt-3 text-xl font-bold text-gray-900">
+                  Recevez votre synthèse avancée
+                </h3>
+                <p className="mt-2 text-sm text-gray-600">
+                  En un seul email, vous obtenez un diagnostic personnalisé de vos temps collectifs, les leviers à
+                  privilégier et les causes transverses à traiter.
+                </p>
+
+                <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
+                  <div className="rounded-xl border border-[#ffe2d3] bg-[#fff9f5] p-3">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-[#ff6a33]">Vision claire</p>
+                    <p className="mt-1 text-sm text-gray-700">Ce qui freine réellement vos temps collectifs aujourd&apos;hui.</p>
+                  </div>
+                  <div className="rounded-xl border border-[#ffe2d3] bg-[#fff9f5] p-3">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-[#ff6a33]">Priorisation</p>
+                    <p className="mt-1 text-sm text-gray-700">Les leviers les plus impactants à activer en premier.</p>
+                  </div>
+                  <div className="rounded-xl border border-[#ffe2d3] bg-[#fff9f5] p-3">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-[#ff6a33]">Causes transverses</p>
+                    <p className="mt-1 text-sm text-gray-700">
+                      Les racines profondes qui entretiennent les difficultés de vos temps collectifs.
+                    </p>
+                  </div>
+                </div>
+
+                <p className="mt-4 text-xs text-gray-500">
+                  Personnalisé selon vos réponses • Envoi immédiat • Synthèse PDF incluse
+                </p>
                 <form onSubmit={handleEmailSubmit} className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
                   <input
                     type="text"
@@ -542,10 +563,12 @@ export default function DiagnosticExperience() {
                     className="inline-flex items-center justify-center gap-2 rounded-lg bg-gray-900 px-5 py-3 font-semibold text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60 sm:col-span-2"
                   >
                     <Mail size={16} />
-                    {submissionState === 'loading' ? 'Envoi en cours...' : 'Recevoir ma synthèse'}
+                    {submissionState === 'loading' ? 'Envoi en cours...' : 'Recevoir ma synthèse avancée'}
                   </button>
                 </form>
-                <p className="mt-2 text-xs text-gray-500">Envoi par email en quelques instants.</p>
+                <p className="mt-2 text-xs text-gray-500">
+                  Vous recevez d&apos;abord votre analyse. Aucun engagement commercial automatique.
+                </p>
                 {submissionState !== 'idle' && submissionMessage && (
                   <div className="mt-3 rounded-lg border border-[#ffd6c2] bg-[#fff5ef] p-3 text-sm text-gray-800">
                     {submissionMessage}
@@ -570,14 +593,6 @@ export default function DiagnosticExperience() {
                   <CheckCircle2 size={18} />
                   Parler de mon diagnostic avec Eveyens
                 </a>
-                <button
-                  type="button"
-                  onClick={handleReset}
-                  className="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-6 py-3 font-semibold text-gray-700 transition hover:bg-gray-50"
-                >
-                  <RotateCcw size={16} />
-                  Refaire le diagnostic
-                </button>
               </div>
             </div>
           )}
