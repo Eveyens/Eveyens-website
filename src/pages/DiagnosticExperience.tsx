@@ -73,7 +73,7 @@ const questions: QuizQuestion[] = [
     theme: 'Impact réel',
     question: 'Quelques semaines après, que reste-t-il ?',
     answers: [
-      { value: 'A', label: 'Des actions concrètes sont mises en oeuvre' },
+      { value: 'A', label: 'Des actions concrètes sont mises en œuvre' },
       { value: 'B', label: 'Quelques avancées visibles' },
       { value: 'C', label: 'Peu de choses ont changé' },
     ],
@@ -286,11 +286,11 @@ export default function DiagnosticExperience() {
       }
 
       setSubmissionState('success');
-      setSubmissionMessage('Votre demande a bien ete envoyee. Vous recevrez votre synthese par email.');
+      setSubmissionMessage('Votre demande a bien été envoyée. Vous recevrez votre synthèse par email.');
       trackEvent({ event: 'diagnostic_email_submitted', status: 'success', score: totalScore, level: result.level });
     } catch {
       setSubmissionState('error');
-      setSubmissionMessage("Une erreur est survenue lors de l'envoi. Merci de reessayer.");
+      setSubmissionMessage("Une erreur est survenue lors de l'envoi. Merci de réessayer.");
       trackEvent({ event: 'diagnostic_email_submitted', status: 'error', score: totalScore, level: result.level });
     }
   };
@@ -517,7 +517,7 @@ export default function DiagnosticExperience() {
                     required
                     value={firstName}
                     onChange={(event) => setFirstName(event.target.value)}
-                    placeholder="Votre prenom"
+                    placeholder="Votre prénom"
                     className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-700 focus:border-[#ff6a33] focus:outline-none focus:ring-2 focus:ring-[#ff6a33]/20"
                   />
                   <input
