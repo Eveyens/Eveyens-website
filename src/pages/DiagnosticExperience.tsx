@@ -15,7 +15,7 @@ interface QuizQuestion {
 }
 
 const calendlyUrl = 'https://calendly.com/eveyens/rdv_mieux-vous-comprendre';
-const diagnosticWebhookUrl = import.meta.env.VITE_DIAGNOSTIC_WEBHOOK_URL;
+const diagnosticWebhookUrl = 'https://n8n.srv849307.hstgr.cloud/webhook/diagnostic-synthese';
 
 const questions: QuizQuestion[] = [
   {
