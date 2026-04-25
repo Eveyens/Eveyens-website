@@ -1,4 +1,4 @@
-import { FormEvent, useMemo, useState } from 'react';
+import { FormEvent, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, CheckCircle2, Mail, RotateCcw } from 'lucide-react';
 import { SEO } from '../components/SEO';
@@ -111,7 +111,7 @@ function getResult(score: number) {
       card: 'bg-[#fff5ef] border-[#ffd6c2]',
       firstLook: "Lecture rapide : votre potentiel est réel, mais l'exécution manque de stabilité.",
       message:
-        'Vos temps collectifs apportent des avancées, mais les effets peinent à s installer durablement dans le quotidien des équipes.',
+        "Vos temps collectifs apportent des avancées, mais les effets peinent à s'installer durablement dans le quotidien des équipes.",
       risk: 'Risque à surveiller : dispersion des priorités et fatigue managériale.',
     };
   }
@@ -202,6 +202,15 @@ export default function DiagnosticExperience() {
   );
   const result = useMemo(() => getPersonalizedQuickAnalysis(totalScore, answers), [answers, totalScore]);
 
+  useEffect(() => {
+    if (!showResults) return;
+    const resultSection = document.getElementById('diagnostic-resultat');
+    if (!resultSection) return;
+    window.requestAnimationFrame(() => {
+      resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }, [showResults]);
+
   const handleAnswer = (themeId: number, value: AnswerValue) => {
     const updated = { ...answers, [themeId]: value };
     setAnswers(updated);
@@ -219,10 +228,6 @@ export default function DiagnosticExperience() {
     }
     setShowResults(true);
     trackEvent({ event: 'diagnostic_results_shown', score: totalScore, level: result.level });
-    const el = document.getElementById('diagnostic-resultat');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
   };
 
   const handleReset = () => {
@@ -498,68 +503,12 @@ export default function DiagnosticExperience() {
               <div className="mt-8 rounded-2xl border border-[#ffd6c2] bg-white p-6">
                 <h3 className="text-lg font-bold text-gray-900">Recevoir ma synthèse plus poussée</h3>
                 <p className="mt-2 text-sm text-gray-600">
-                  Accédez à une lecture structurée de votre diagnostic avec des solutions concrètes, les avantages
-                  attendus et un cadre clair pour passer à l'action.
+                  Accédez à une lecture structurée de votre diagnostic avec des leviers prioritaires, les avantages
+                  attendus et un cadre clair pour passer à l&apos;action.
                 </p>
-                <div className="mt-4 rounded-xl border border-gray-200 bg-gradient-to-b from-[#eef2f9] to-[#f6f8fc] p-3">
-                  <div className="mb-2 flex items-center justify-between">
-                    <span className="rounded-full bg-white px-2 py-0.5 text-[10px] font-semibold text-[#ff6a33] shadow-sm">
-                      Aperçu synthèse
-                    </span>
-                    <span className="text-[10px] text-gray-500">Version détaillée envoyée par email</span>
-                  </div>
-                  <div className="relative overflow-hidden rounded-md border border-gray-200 bg-white p-2.5">
-                    <div className="pointer-events-none select-none">
-                      <div className="mb-1.5 text-center">
-                        <div className="text-[10px] font-bold tracking-[0.22em] text-[#102a57]">EVEYENS</div>
-                        <div className="text-[8px] uppercase tracking-wider text-[#c4a15a]">
-                          Diagnostic personnalisé
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-7 gap-1">
-                        {questions.map((question) => (
-                          <div
-                            key={`preview-head-${question.id}`}
-                            className="flex flex-col items-center justify-start gap-1 rounded-sm border border-gray-200 bg-white px-1 py-1.5 text-center"
-                          >
-                            <span className="flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#102a57] text-[7px] font-bold text-white">
-                              {question.id}
-                            </span>
-                            <span className="text-[7px] font-semibold uppercase leading-[1.05] text-[#102a57]">
-                              {question.theme}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-
-                      <div className="relative mt-2 min-h-[52px]">
-                        <div className="pointer-events-none select-none space-y-1.5 pb-1 blur-[3px]">
-                          {(['Conception', 'Animation', 'Suivi'] as const).map((label) => (
-                            <div key={label} className="flex items-stretch gap-1">
-                              <div className="flex w-[22px] shrink-0 flex-col items-center justify-center rounded-sm bg-[#102a57] px-0.5 py-1 text-center text-[6px] font-bold uppercase leading-tight text-white">
-                                {label.slice(0, 4)}
-                              </div>
-                              {questions.map((question) => (
-                                <div
-                                  key={`${label}-${question.id}`}
-                                  className="min-h-[10px] flex-1 rounded-sm border border-gray-200 bg-gray-50 px-0.5 py-0.5"
-                                >
-                                  <div className="mb-0.5 h-0.5 w-full rounded bg-gray-300/80" />
-                                  <div className="h-0.5 w-4/5 rounded bg-gray-300/60" />
-                                </div>
-                              ))}
-                            </div>
-                          ))}
-                        </div>
-                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent from-10% via-white/70 to-white backdrop-blur-[2px]" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
                 <ul className="mt-4 space-y-1 text-sm text-gray-700">
                   <li>- Analyse structurée de vos temps collectifs</li>
-                  <li>- Solutions prioritaires et leviers concrets</li>
+                  <li>- Leviers prioritaires à activer</li>
                   <li>- Avantages attendus à court et moyen terme</li>
                 </ul>
                 <form onSubmit={handleEmailSubmit} className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -593,7 +542,7 @@ export default function DiagnosticExperience() {
                     className="inline-flex items-center justify-center gap-2 rounded-lg bg-gray-900 px-5 py-3 font-semibold text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60 sm:col-span-2"
                   >
                     <Mail size={16} />
-                    {submissionState === 'loading' ? 'Envoi en cours...' : 'Recevoir ma synthese'}
+                    {submissionState === 'loading' ? 'Envoi en cours...' : 'Recevoir ma synthèse'}
                   </button>
                 </form>
                 <p className="mt-2 text-xs text-gray-500">Envoi par email en quelques instants.</p>

@@ -91,7 +91,7 @@ export default function DiagnosticLanding() {
               Diagnostic des temps collectifs
             </p>
             <h1 className="text-4xl font-bold leading-tight text-gray-900 md:text-5xl">
-              Vos temps collectifs créent-ils vraiment de l&apos;impact… ou l&apos;illusion d&apos;en créer ?
+              Vos temps collectifs génèrent-ils vraiment de l&apos;impact ?
             </h1>
             <div className="mx-auto my-6 ml-0 w-28 underline-shine md:w-40" />
             <p className="mt-4 max-w-xl text-lg text-gray-700 md:text-xl">
@@ -103,11 +103,12 @@ export default function DiagnosticLanding() {
               <span className="text-sm text-gray-500">2 min &bull; 7 thèmes &bull; résultat immédiat</span>
             </div>
           </div>
-          <div className="flex justify-center lg:justify-end">
+          <div className="relative flex justify-center lg:justify-end">
+            <div className="absolute right-6 top-1/2 h-40 w-40 -translate-y-1/2 rounded-full bg-[#ff6a33] opacity-20 blur-3xl sm:h-52 sm:w-52 lg:h-60 lg:w-60" />
             <img
               src="/image/logo-eveyens.webp"
               alt="Eveyens"
-              className="h-auto w-full max-w-[280px] object-contain drop-shadow-sm sm:max-w-[340px] lg:max-w-[420px]"
+              className="relative h-auto w-full max-w-[280px] object-contain drop-shadow-sm sm:max-w-[340px] lg:max-w-[420px]"
               width={420}
               height={420}
             />
