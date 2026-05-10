@@ -48,10 +48,10 @@ function CtaButton({
   position: CtaPosition;
   variant?: 'primary' | 'outline';
 }) {
-  const base = 'inline-flex items-center gap-2 rounded-lg px-7 py-3 font-semibold transition-colors';
+  const base = 'inline-flex items-center gap-2 rounded-xl px-8 py-4 font-bold text-base transition-all';
   const classes =
     variant === 'primary'
-      ? `${base} bg-[#ff6a33] text-white hover:opacity-90 shadow-sm`
+      ? `${base} bg-[#ff6a33] text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 hover:opacity-95`
       : `${base} border-2 border-[#ff6a33] text-[#ff6a33] hover:bg-[#ff6a33] hover:text-white`;
 
   return (
@@ -95,8 +95,7 @@ export default function DiagnosticLanding() {
             </h1>
             <div className="mx-auto my-6 ml-0 w-28 underline-shine md:w-40" />
             <p className="mt-4 max-w-xl text-lg text-gray-700 md:text-xl">
-              Beaucoup de dirigeants sentent que leurs temps collectifs ne transforment pas assez. En 2 minutes, cette
-              expérience ludique permet de mettre des mots sur le vrai problème, avant d&apos;en parler avec Eveyens.
+              En 2 minutes, identifiez ce qui freine vos temps collectifs — et repartez avec une synthèse actionnable.
             </p>
             <div className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
               <CtaButton position="hero" />

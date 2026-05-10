@@ -16,6 +16,7 @@ interface QuizQuestion {
 
 const calendlyUrl = 'https://calendly.com/eveyens/rdv_mieux-vous-comprendre';
 const diagnosticWebhookUrl = 'https://n8n.srv849307.hstgr.cloud/webhook/diagnostic-synthese';
+const diagnosticTrackingUrl = 'https://n8n.srv849307.hstgr.cloud/webhook/e27d6c88-7e09-481d-8f73-e163c846b65a';
 
 const questions: QuizQuestion[] = [
   {
@@ -222,12 +223,35 @@ export default function DiagnosticExperience() {
     }
   };
 
+  const handleThemeClick = (questionId: number) => {
+    setActiveThemeId(questionId);
+    const questionPanel = document.getElementById('question-panel');
+    if (questionPanel) {
+      window.requestAnimationFrame(() => {
+        questionPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+  };
+
   const handleShowResults = () => {
     if (!allAnswered) {
       return;
     }
     setShowResults(true);
     trackEvent({ event: 'diagnostic_results_shown', score: totalScore, level: result.level });
+    window.requestAnimationFrame(() => {
+      document.getElementById('diagnostic-resultat')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    const webhookAnswers = questions.reduce<Record<string, AnswerValue>>((acc, question) => {
+      const value = answers[question.id];
+      if (value) acc[`q${question.id}`] = value;
+      return acc;
+    }, {});
+    fetch(diagnosticTrackingUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ score: totalScore, level: result.level, answers: webhookAnswers, submittedAt: new Date().toISOString() }),
+    }).catch(() => {});
   };
 
   const handleReset = () => {
@@ -377,7 +401,7 @@ export default function DiagnosticExperience() {
                       <button
                         key={question.id}
                         type="button"
-                        onClick={() => setActiveThemeId(question.id)}
+                        onClick={() => handleThemeClick(question.id)}
                         className={`absolute flex w-[92px] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-2xl border-2 px-2 py-1.5 text-center text-[10px] font-semibold leading-tight shadow transition hover:scale-105 sm:w-[104px] lg:w-[112px] ${
                           active
                             ? 'border-[#ff6a33] bg-white text-[#ff6a33]'
@@ -424,7 +448,7 @@ export default function DiagnosticExperience() {
               </p>
             </div>
 
-            <div className="rounded-3xl border border-gray-100 bg-white p-6 shadow-sm">
+            <div id="question-panel" className="rounded-3xl border border-gray-100 bg-white p-6 shadow-sm">
               <p className="text-xs font-semibold uppercase tracking-wider text-[#ff6a33]">
                 Thème {activeQuestion.id}/7 · {activeQuestion.theme}
               </p>
@@ -462,7 +486,7 @@ export default function DiagnosticExperience() {
                     <button
                       key={question.id}
                       type="button"
-                      onClick={() => setActiveThemeId(question.id)}
+                      onClick={() => handleThemeClick(question.id)}
                       className={`h-8 w-8 rounded-full text-xs font-bold transition ${
                         answers[question.id]
                           ? 'bg-green-100 text-green-700'
@@ -484,22 +508,36 @@ export default function DiagnosticExperience() {
                   Réinitialiser
                 </button>
               </div>
+
+              {allAnswered && (
+                <button
+                  type="button"
+                  onClick={handleShowResults}
+                  className="mt-6 w-full rounded-xl bg-[#ff6a33] px-6 py-4 text-base font-bold text-white shadow-sm transition hover:opacity-90"
+                >
+                  {showResults ? 'Mettre à jour mes résultats →' : 'Voir mes résultats →'}
+                </button>
+              )}
             </div>
           </div>
 
           {showResults && (
             <div
               id="diagnostic-resultat"
-              className={`mt-10 rounded-3xl border p-8 shadow-sm ${result.card}`}
+              className={`mt-10 rounded-3xl border p-6 shadow-sm sm:p-8 ${result.card}`}
             >
+              {/* Score + niveau */}
               <p className={`text-sm font-semibold uppercase tracking-wider ${result.accent}`}>Votre résultat</p>
               <h2 className={`mt-2 text-3xl font-bold ${result.accent}`}>{result.level}</h2>
               <p className="mt-2 text-gray-700">Score global : {totalScore}/14</p>
+
+              {/* Lecture simple */}
               <p className="mt-4 text-lg font-semibold text-gray-900">{result.firstLook}</p>
               <p className="mt-3 text-gray-700">{result.message}</p>
               <p className="mt-3 rounded-lg border border-[#ffd6c2] bg-white p-3 text-gray-700">{result.quickFocus}</p>
               <p className="mt-3 text-gray-700">{result.risk}</p>
 
+              {/* Formulaire synthèse avancée */}
               <div className="mt-8 rounded-2xl border border-[#ffd6c2] bg-white p-6">
                 <p className="inline-flex items-center rounded-full bg-[#fff5ef] px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[#ff6a33]">
                   Version complète personnalisée
@@ -511,6 +549,47 @@ export default function DiagnosticExperience() {
                   En un seul email, vous obtenez un diagnostic personnalisé de vos temps collectifs, les leviers à
                   privilégier et les causes transverses à traiter.
                 </p>
+
+                {/* Sur mobile : formulaire avant les blocs avantages */}
+                <form onSubmit={handleEmailSubmit} className="mt-4 grid grid-cols-1 gap-3 sm:hidden">
+                  <input
+                    type="text"
+                    required
+                    value={firstName}
+                    onChange={(event) => setFirstName(event.target.value)}
+                    placeholder="Votre prénom"
+                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-700 focus:border-[#ff6a33] focus:outline-none focus:ring-2 focus:ring-[#ff6a33]/20"
+                  />
+                  <input
+                    type="text"
+                    required
+                    value={lastName}
+                    onChange={(event) => setLastName(event.target.value)}
+                    placeholder="Votre nom"
+                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-700 focus:border-[#ff6a33] focus:outline-none focus:ring-2 focus:ring-[#ff6a33]/20"
+                  />
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                    placeholder="votre@email.com"
+                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-700 focus:border-[#ff6a33] focus:outline-none focus:ring-2 focus:ring-[#ff6a33]/20"
+                  />
+                  <button
+                    type="submit"
+                    disabled={submissionState === 'loading' || submissionState === 'success'}
+                    className="inline-flex items-center justify-center gap-2 rounded-lg bg-gray-900 px-5 py-3 font-semibold text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    <Mail size={16} />
+                    {submissionState === 'loading' ? 'Envoi en cours...' : 'Recevoir ma synthèse avancée'}
+                  </button>
+                </form>
+                {submissionState !== 'idle' && submissionMessage && (
+                  <div className={`mt-3 rounded-lg border p-3 text-sm sm:hidden ${submissionState === 'success' ? 'border-green-200 bg-green-50 text-green-800' : 'border-[#ffd6c2] bg-[#fff5ef] text-gray-800'}`}>
+                    {submissionMessage}
+                  </div>
+                )}
 
                 <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
                   <div className="rounded-xl border border-[#ffe2d3] bg-[#fff9f5] p-3">
@@ -532,7 +611,8 @@ export default function DiagnosticExperience() {
                 <p className="mt-4 text-xs text-gray-500">
                   Personnalisé selon vos réponses • Envoi immédiat • Synthèse PDF incluse
                 </p>
-                <form onSubmit={handleEmailSubmit} className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                {/* Sur desktop : formulaire après les blocs avantages */}
+                <form onSubmit={handleEmailSubmit} className="mt-4 hidden grid-cols-1 gap-3 sm:grid sm:grid-cols-2">
                   <input
                     type="text"
                     required
@@ -559,7 +639,7 @@ export default function DiagnosticExperience() {
                   />
                   <button
                     type="submit"
-                    disabled={submissionState === 'loading'}
+                    disabled={submissionState === 'loading' || submissionState === 'success'}
                     className="inline-flex items-center justify-center gap-2 rounded-lg bg-gray-900 px-5 py-3 font-semibold text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60 sm:col-span-2"
                   >
                     <Mail size={16} />
@@ -570,12 +650,13 @@ export default function DiagnosticExperience() {
                   Vous recevez d&apos;abord votre analyse. Aucun engagement commercial automatique.
                 </p>
                 {submissionState !== 'idle' && submissionMessage && (
-                  <div className="mt-3 rounded-lg border border-[#ffd6c2] bg-[#fff5ef] p-3 text-sm text-gray-800">
+                  <div className={`mt-3 rounded-lg border p-3 text-sm ${submissionState === 'success' ? 'border-green-200 bg-green-50 text-green-800' : 'border-[#ffd6c2] bg-[#fff5ef] text-gray-800'}`}>
                     {submissionMessage}
                   </div>
                 )}
               </div>
 
+              {/* CTA Calendly */}
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <a
                   href={calendlyUrl}
